@@ -1,13 +1,13 @@
-// Navigation functionality
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Get DOM elements
+    
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
 
-    // Throttle function for better performance
+    
     function throttle(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -20,23 +20,23 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Handle scroll events
+    
     function handleScroll() {
         const scrolled = window.pageYOffset;
         const threshold = 50;
 
-        // Change navbar appearance on scroll
+        
         if (scrolled > threshold) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
 
-        // Update active navigation link based on scroll position
+        
         updateActiveNavLink();
     }
 
-    // Update active navigation link
+    
     function updateActiveNavLink() {
         const scrollPos = window.pageYOffset + 100;
 
@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionId = section.getAttribute('id');
 
             if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                // Remove active class from all links
+                
                 navLinks.forEach(link => link.classList.remove('active'));
                 
-                // Add active class to current section link
+                
                 const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
                 if (activeLink) {
                     activeLink.classList.add('active');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scroll to section
+    
     function smoothScrollTo(targetId) {
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
@@ -71,30 +71,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Handle navigation link clicks
+    
     function handleNavLinkClick(e) {
         e.preventDefault();
         
         const targetId = this.getAttribute('data-section');
         
-        // Close mobile menu if open
+        
         navMenu.classList.remove('active');
         navToggle.classList.remove('active');
         
-        // Smooth scroll to section
+        
         smoothScrollTo(targetId);
         
-        // Update active link
+        
         navLinks.forEach(link => link.classList.remove('active'));
         this.classList.add('active');
     }
 
-    // Toggle mobile menu
+    
     function toggleMobileMenu() {
         navMenu.classList.toggle('active');
         navToggle.classList.toggle('active');
         
-        // Prevent body scroll when menu is open
+        
         if (navMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Close mobile menu when clicking outside
+    
     function closeMobileMenuOnOutsideClick(e) {
         if (!navbar.contains(e.target) && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Enhanced hover effects for navigation links
+    
     function addHoverEffects() {
         navLinks.forEach(link => {
             link.addEventListener('mouseenter', function() {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add floating animation to CTA buttons
+    
     function addButtonAnimations() {
         const ctaButtons = document.querySelectorAll('.cta-button');
         
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add parallax effect to sections
+    
     function addParallaxEffect() {
         const parallaxElements = document.querySelectorAll('.hero-content, .section-title');
         
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', throttle(updateParallax, 10));
     }
 
-    // Add intersection observer for fade-in animations
+    
     function addScrollAnimations() {
         const observerOptions = {
             threshold: 0.1,
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, observerOptions);
         
-        // Observe service cards and other elements
+        
         const animatedElements = document.querySelectorAll('.service-card, .section-text');
         animatedElements.forEach(el => {
             el.style.opacity = '0';
@@ -197,32 +197,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize all functionality
+    
     function init() {
-        // Add event listeners
+        
         window.addEventListener('scroll', throttle(handleScroll, 10));
         navToggle.addEventListener('click', toggleMobileMenu);
         document.addEventListener('click', closeMobileMenuOnOutsideClick);
         
-        // Add click listeners to navigation links
+        
         navLinks.forEach(link => {
             link.addEventListener('click', handleNavLinkClick);
         });
         
-        // Initialize enhancements
+        
         addHoverEffects();
         addButtonAnimations();
         addParallaxEffect();
         addScrollAnimations();
         
-        // Set initial state
+        
         handleScroll();
         updateActiveNavLink();
     }
 
-    // Handle window resize
+    
     function handleResize() {
-        // Close mobile menu on resize to desktop
+        
         if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
@@ -232,12 +232,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('resize', throttle(handleResize, 100));
 
-    // Start the application
+    
     init();
 
-    // Add keyboard navigation support
+   
     document.addEventListener('keydown', function(e) {
-        // Press 'Escape' to close mobile menu
+        
         if (e.key === 'Escape' && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             navToggle.classList.remove('active');
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add touch support for mobile hover effects
+    
     if ('ontouchstart' in window) {
         navLinks.forEach(link => {
             link.addEventListener('touchstart', function() {
